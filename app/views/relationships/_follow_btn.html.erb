@@ -1,0 +1,11 @@
+<span id="follow_buttons_<%= user.id %>">
+  <% if current_user.following?(user) %>
+    <%= link_to user_relationships_path(user), method: :delete, remote: true, class: "btn btn-danger btn-sm" do %>
+      フォロー外す
+    <% end %>
+  <% else %>
+    <%= link_to user_relationships_path(user), method: :post, remote: true, class: "btn btn-success btn-sm" do %>
+      フォローする
+    <% end %>
+  <% end %>
+</span>

@@ -8,6 +8,29 @@
 	  <th>introduction</th>
 	  <th><%= user.introduction %></th>
   </tr>
+   <tr>
+   <th>
+          フォロー数: 
+          <%= link_to followings_user_path(user) do %>
+            <%= user.followings.count %>
+          <% end %>
+          </th>
+        </tr>
+        <tr>
+        <th>
+          フォロワー数: 
+          <%= link_to followers_user_path(user) do %>
+            <%= user.followers.count %>
+          <% end %>
+          </th>
+        </tr>
+        <tr>
+        <th>
+        <% unless user == current_user %>
+        <%= render 'relationships/follow_btn', user: user %>
+        <% end %>
+        </th>
+        </tr>
 </table>
 　
 <div class='row'>
