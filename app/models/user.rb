@@ -27,4 +27,20 @@ class User < ApplicationRecord
   def get_profile_image
     (profile_image.attached?) ? profile_image : 'no_image.jpg'
   end
+
+  def self.looks(method, word)
+    case method
+    when "perfect_match" # 完全一致
+      User.where("name LIKE ?", "#{word}")
+    when "forward_match" # 前方一致
+      User.where("name LIKE ?", "#{word}%")
+    when "backward_match" # 後方一致
+      User.where("name LIKE ?", "%#{word}")
+    when "partial_match" # 部分一致
+      User.where("name LIKE ?", "%#{word}%")
+    else
+      # 該当しない場合は全てのユーザーを返すなど、適切な処理を記述
+      User.all
+    end
+  end
 end
