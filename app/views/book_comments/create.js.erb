@@ -1,0 +1,6 @@
+// 1. コメント一覧を更新
+// @book から 'books/_comment_list' 部分テンプレートを再レンダリング
+$("#comment-list-<%= @book.id %>").html("<%= j(render('books/comment_list', book: @book)) %>");
+
+// 2. コメントフォームのテキストエリアをクリア
+$("#comment_textarea").val('');

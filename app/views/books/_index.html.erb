@@ -17,8 +17,11 @@
         <td><%= link_to book.title,book %></td>
         <td><%= book.body %></td>
         <td class="favorite-area">
-          <%# 部分テンプレートを呼び出す際に、bookをローカル変数として渡します %>
-          <%= render 'books/favorite_btn', book: book %>
+          <%# 差し替えのターゲットとなるdiv要素 %>
+          <div id="favorite_btn_<%= book.id %>">
+            <%# 差し替える「中身」を呼び出す %>
+            <%= render 'books/favorite_btn', book: book %>
+          </div>
         </td>
         <td>コメント数: <%= book.book_comments.count %></td>
         

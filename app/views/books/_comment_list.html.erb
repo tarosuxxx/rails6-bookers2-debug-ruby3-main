@@ -1,0 +1,24 @@
+<div id="comment-list-<%= book.id %>">  <% book.book_comments.each do |book_comment| %>
+    <table class="table table-hover table-inverse"> <tr>
+        <td style="border: none;">
+          <%# ユーザー情報（画像と名前） %>
+          <%= link_to user_path(book_comment.user) do %>
+            <%# 画像はサイズを明示的に指定します %>
+            <%= image_tag book_comment.user.get_profile_image(50, 50), size: "50x50" %><br>
+            <%= book_comment.user.name %>
+          <% end %>
+        </td>
+        <td style="border: none;">
+          <%# コメント内容 %>
+          <%= book_comment.comment %>
+        </td>
+        <td style="border: none;">
+          <%# 削除ボタン %>
+          <% if book_comment.user == current_user %>
+            <%= link_to "Destroy", book_book_comment_path(book_comment.book, book_comment), method: :delete, remote: true, class: "btn btn-sm btn-danger destroy_book_comment" %>
+          <% end %>
+        </td>
+      </tr>
+    </table>
+  <% end %>
+</div>

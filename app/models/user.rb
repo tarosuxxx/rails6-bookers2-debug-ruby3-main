@@ -24,8 +24,15 @@ class User < ApplicationRecord
     followings.include?(other_user)
   end
   
-  def get_profile_image
-    (profile_image.attached?) ? profile_image : 'no_image.jpg'
+  def get_profile_image(width = 100, height = 100)
+    # profile_image が添付されている場合
+    if profile_image.attached?
+      # Active Storage の variant を使って画像サイズを変更して返す
+      profile_image.variant(resize_to_limit: [width, height]).processed
+    else
+      # 添付されていない場合は代替画像を返す
+      'no_image.jpg'
+    end
   end
 
   def self.looks(method, word)
@@ -42,5 +49,12 @@ class User < ApplicationRecord
       # 該当しない場合は全てのユーザーを返すなど、適切な処理を記述
       User.all
     end
+  end
+
+  def favorited_by?(book)
+    # self.favorites は User モデルと Favorite モデルのアソシエーション（has_many :favorites）を前提としています
+    # .where(book_id: book.id) で、その本IDを持つお気に入りが存在するか検索します
+    # .exists? は存在すれば true、なければ false を返します
+    favorites.exists?(book_id: book.id)
   end
 end

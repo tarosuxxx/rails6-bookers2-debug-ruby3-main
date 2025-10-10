@@ -1,0 +1,3 @@
+// コメント一覧を更新
+// @book から 'books/_comment_list' 部分テンプレートを再レンダリングし、コメント一覧のdiv（id="comment-list-..."）の中身を置き換えます。
+$("#comment-list-<%= @book.id %>").html("<%= j(render('books/comment_list', book: @book)) %>");
