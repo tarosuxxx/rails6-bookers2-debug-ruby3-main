@@ -1,13 +1,22 @@
-<span id="favorite_buttons_<%= book.id %>">
-  <% if book.favorited_by?(current_user) %>
-    <%= link_to book_favorites_path(book), method: :delete, remote: true, class: "favorite-link" do %>
-      <i class="fas fa-heart" aria-hidden="true" style="color: red;"></i>
+<%# 変数名はコントローラから渡される@bookに合わせてください %>
+<%# ローカル変数 book が渡されることを想定しています %>
+
+<%# **重要**: このdiv全体を非同期通信で書き換えます。book.idを使って一意なIDを付けます %>
+<div id="favorite_btn_<%= book.id %>">
+  
+  <%# ユーザーがお気に入り済みの場合 (お気に入り解除ボタンを表示) %>
+  <% if current_user.favorited_by?(book) %>
+    <%= link_to book_favorites_path(book), method: :delete, remote: true, class: "favorite-link text-danger" do %>
+      <i class="fas fa-heart"></i>
       <%= book.favorites.count %>
     <% end %>
+  
+  <%# ユーザーがお気に入りしていない場合 (お気に入りボタンを表示) %>
   <% else %>
-    <%= link_to book_favorites_path(book), method: :post, remote: true, class: "favorite-link" do %>
-      <i class="far fa-heart" aria-hidden="true"></i>
+    <%= link_to book_favorites_path(book), method: :post, remote: true, class: "favorite-link text-secondary" do %>
+      <i class="far fa-heart"></i>
       <%= book.favorites.count %>
     <% end %>
   <% end %>
-</span>
+  
+</div>

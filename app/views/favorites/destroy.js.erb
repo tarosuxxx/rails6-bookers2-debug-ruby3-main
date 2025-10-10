@@ -1,0 +1,4 @@
+// app/views/likes/destroy.js.erb
+
+// id="like-button-ポストID" の要素全体を、新しくレンダリングしたテンプレートで置き換える
+$('#like-button-<%= @post.id %>').html("<%= j(render('likes/like_button', post: @post)) %>");
